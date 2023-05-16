@@ -1,2 +1,2 @@
 # sh-gen
-Generate SH polynomials
+Generate **S**pherical **H**armonics polynomials
