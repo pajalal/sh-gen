@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SH Generator</title>
+<style>
+body
+{
+    background: black;
+    color: white;
+    font-family: consolas;
+}
+textarea
+{
+    position: absolute;
+    left: 8px;
+    top: 64px;
+    background: none;
+    color: white;
+    border: none;
+    resize: none;
+    font-size: 16px;
+}
+textarea:focus
+{
+    outline: none;
+}
+#inputs
+{
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+#controls
+{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+#pausebtn
+{
+    color: white;
+    background: none;
+    border: none;
+    border-radius: 0px;
+    outline: none;
+}
+select
+{
+    color: white;
+    background: none;
+}
+option
+{
+    color: white;
+    background-color: black;
+}
+#pausebtn:hover
+{
+    color: lightblue;
+}
+</style>
+<script src="SH.js" defer></script>
+</head>
+<body>
+<canvas id="thecanvas" width=768 height=768></canvas>
+<div id="inputs">
+    <input id="selectL" type="range" min=0 max=16 value=3 onmousemove="pick_L(this);">
+    L = <span id="tagL">3</span></input>
+    <br>
+    <input id="selectM" type="range" min=-3 max=3 value=1 onmousemove="pick_M(this);"></input>
+    M = <span id="tagM">1</span></input>
+</div>
+<textarea id="poly" cols=40 rows=32 readonly>
+</textarea>
+<div id="controls">
+    <button id="pausebtn" onclick="pausebtn(this);">&#x23f8;</button>
+    <select onchange="rmode(this);">
+        <option>Radial</option>
+        <option>Color</option>
+    </select>
+</div>
+</body>
+<script>
+function pick_L(e)
+{
+    let l = e.value;
+    let v = document.getElementById("selectM");
+    let w = document.getElementById("tagL");
+    v.min   = -l;
+    v.max   =  l;
+    w.innerHTML = "" + l;
+    document.getElementById("tagM").innerHTML = v.value;
+}
+function pick_M(e)
+{
+    let w = document.getElementById("tagM");
+    w.innerHTML = "" + e.value;
+}
+var paused = false;
+var rendermode = 0;
+function pausebtn(e)
+{
+    paused = !paused;
+    if (paused) e.innerHTML = "&#x23f5;";
+    else        e.innerHTML = "&#x23f8;";
+}
+function rmode(e)
+{
+    if (e.value == "Color") rendermode = 1;
+    else                    rendermode = 0;
+    console.log(e.value == "Color");
+}
+</script>
+</html>
